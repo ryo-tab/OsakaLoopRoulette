@@ -1,31 +1,75 @@
-<!DOCTYPE html> <html lang="ja"> <head> <meta charset="UTF-8"> <title>環状線ルーレット</title> <style> body { font-family: sans-serif; text-align: center; background: #f0f0f5; padding: 30px; }
-h1 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-}
-#roulette {
-    margin: 20px auto;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 25px;
-    width: 80%;
-    max-width: 350px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.15);
-}
-button {
-    margin-top: 20px;
-    font-size: 1.5rem;
-    padding: 15px 40px;
-    background: #ff6600;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 80%;
-    max-width: 320px;
-}
-</style> </head> <body> <h1>🚇 環状線ルーレット</h1> <div id="roulette">スタートを押してね</div>
-<button id="startBtn">スタート</button>
-<script> const stations = [ "大阪","福島","野田","西九条","弁天町", "大正","芦原橋","今宮","新今宮","天王寺", "寺田町","桃谷","鶴橋","玉造","森ノ宮", "大阪城公園","京橋","桜ノ宮","天満" ]; let timer = null; document.getElementById("startBtn").onclick = function() { if (timer) return; let i = 0; const display = document.getElementById("roulette"); timer = setInterval(() => { display.textContent = stations[i % stations.length]; i++; }, 70); const stopTime = 2000 + Math.random() * 2000; setTimeout(() => { clearInterval(timer); timer = null; }, stopTime); }; </script> </body> </html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>環状線ルーレット</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f0f5;
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    #roulette {
+      margin: 20px auto;
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 25px;
+      width: 80%;
+      max-width: 350px;
+      background: white;
+      border: 5px solid red; /* 赤枠 */
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    button {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      padding: 15px 40px;
+      background: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 80%;
+      max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚇 環状線ルーレット</h1>
+  <div id="roulette">スタートを押してね</div>
+  <button id="startBtn">スタート</button>
+
+  <script>
+    const stations = [
+      "大阪", "福島", "野田", "西九条", "弁天町", "大正", 
+      "芦原橋", "今宮", "新今宮", "天王寺", "寺田町", 
+      "桃谷", "鶴橋", "玉造", "森ノ宮"
+    ];
+    const roulette = document.getElementById('roulette');
+    const startBtn = document.getElementById('startBtn');
+
+    startBtn.addEventListener('click', () => {
+      startBtn.disabled = true;
+
+      let count = 0;
+      const interval = setInterval(() => {
+        roulette.textContent = stations[Math.floor(Math.random() * stations.length)];
+        count++;
+        if (count > 20) {
+          clearInterval(interval);
+          startBtn.disabled = false;
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>
